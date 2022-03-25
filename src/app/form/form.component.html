@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="styesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css ">
+  <link rel="stylesheet" href="./form.component.css">
+  <script src="https://kit.fontawesome.com/67fa5a4c56.js" crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" action="" method="post">
+
+      <fieldset>
+        <h1>Registration Form</h1>
+
+        <p class="field field-icon">
+          <label for="username"><span><i class="fas fa-user"></i></span></label>
+          <input #username="ngModel" type="text" name="username" id="username" class="error" placeholder="Mark Ulrich"
+            required pattern="([A-Z][a-z]+ [A-Z][a-z]+)" ngModel>
+        </p>
+        <ng-container>
+          <p class="error" *ngIf="username.invalid && username.touched">
+            The username is required and should start with capital letters!
+          </p>
+        </ng-container>
+
+        <p class="field field-icon">
+          <label for="email"><span><i class="fas fa-envelope"></i></span></label>
+          <input #email="ngModel" type="text" name="email" id="email" placeholder="marк@gmial.com" ngModel required
+            email>
+        </p>
+        <ng-container>
+          <p class="aler alert-danger" *ngIf="email.invalid && email.touched">
+            The field is required and the email should be valid!
+          </p>
+        </ng-container>
+
+        <p class="field field-icon">
+          <label for="tel"><span><i class="fas fa-phone"></i></span></label>
+          <select name="tel" id="tel" class="tel">
+            <option *ngFor="let code of codes" value="1">{{code}}</option>
+          </select>
+          <input type="text" name="tel" id="tel" placeholder="888 888" ngModel required minlength="6" maxlength="6">
+        </p>
+
+        <p class="field field-icon">
+          <label for="building"><span><i class="fas fa-building"></i></span></label>
+          <select name="building" id="building" class="building">
+            <option *ngFor="let building of buildings" value="1">{{building}}</option>
+          </select>
+        </p>
+
+        <div ngModelGroup="passData" #passData="ngModelGroup">
+        <p class="field field-icon">
+          <label for="password"><span><i class="fas fa-lock"></i></span></label>
+          <input #password="ngModel" type="password" name="password" id="password" placeholder="******" ngModel required minlength="3"
+            maxlength="16" pattern="[a-zA-Z]+[0-9]+">
+        </p>
+
+        <p class="field field-icon">
+          <label for="re-password"><span><i class="fas fa-lock"></i></span></label>
+          <input type="password" name="re-password" id="re-password" placeholder="******" ngModel>
+        </p>
+    </div>
+    <div class="alert alert-danger" *ngIf="passData.invalid && passData.touched">
+        Both passwords must be valid!
+      </div>
+      
+        <p>
+          <button [disabled]="registerForm.invalid">Create Account</button>
+        </p>
+
+        <p class="text-center">
+          Have an account?
+          <a href="">Log In</a>
+        </p>
+
+      </fieldset>
+    </form>
+  </div>
+
+
+</body>
+
+</html>
